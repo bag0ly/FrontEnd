@@ -40,7 +40,7 @@ console.table(osztaly);*/
 for (let x of fruits.keys()) {
     console.log(fruits[x]);
 }*/
-function employee(name, jobtitle, born)
+/*function employee(name, jobtitle, born)
 {
     this.name = name;
     this.jobtitle=jobtitle
@@ -52,4 +52,16 @@ employee.prototype.salary= 200000;
  console.log(fred)
  const Ricsikericsikericsike = new employee("Ricsikericsikericsike","ProfessionalGypsyCommander",2004)
  Ricsikericsikericsike.salary=69420
- console.log(Ricsikericsikericsike)
+ console.log(Ricsikericsikericsike)*/
+ fruits = new Map([
+    ["apple",505],
+    ["pear",432],
+    ["cherry", 783]
+ ])
+ fruits.set("ujitem",245)
+ console.log(fruits.get("pear"))
+ console.log(fruits.has("pear"))
+ console.table(fruits)
+
+ 
+ 
