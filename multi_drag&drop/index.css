@@ -1,0 +1,19 @@
+.not-grabber{
+    cursor:move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+.grabber{
+    cursor:grabbing;
+    cursor: -webkit-grabbin;
+    cursor: -moz-grabbing;
+}
+
+.box{
+    background-color: lightblue ;
+    border: 2px dashed black;
+    border-radius: 30px;
+    
+}
