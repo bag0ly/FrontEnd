@@ -1,4 +1,5 @@
 import React, { useDebugValue, useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import './App.css';
 
