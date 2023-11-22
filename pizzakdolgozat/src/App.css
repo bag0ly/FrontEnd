@@ -15,11 +15,11 @@
 
 #width
 {
-  width: 18rem;
+  width: auto;
 }
 
 .maxHeight{
-  max-height: 100px;
+  max-height: 200px;
 }
  
 
@@ -30,7 +30,7 @@
 
 .card.pizza-container {
   flex: 1;
-  margin: 0 10px 10px 0; /* Adjust margins as needed */
+  margin: 0 10px 10px 0; 
 }
 .App-header {
   background-color: #282c34;
