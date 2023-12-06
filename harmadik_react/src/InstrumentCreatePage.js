@@ -1,38 +1,56 @@
-import {useEffect, useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 export function InstrumentCreatePage()
 {
-    const [instruments,setInstruments] = useState([]);
-    const [isFetchPending,setFetchPending] = useState(false);
-
-    useEffect(() => {
-        setFetchPending(true);
-        fetch("https://kodbazis.hu/api/instruments", { credentials: "include" })
-          .then((res) => res.json())
-          .then((hangszerek) => setInstruments(hangszerek))
-          .catch(console.log)  
-          .finally(() => {
-            setFetchPending(false);
-          });
-         }, []);
-    return(
-        <div className='p-5 m-auto text-center content bg-ivory'>
-                {isFetchPending ? (<div className="spinner-border"></div>):(
-                    <div>
-                        <h2>Hangszorok</h2>
-                        {instruments.map((instrument)=>(
-                            <div className='card sol-sm-3 d-inline-block m-1 p-2'>
-                                <h6 className='text-muted'>{instrument.brand}</h6>
-                                <h5 className='text-muted'>{instrument.name}</h5>
-                                <div>{instrument.price}.- HUF</div>
-                                <div className='small'>Készleten: {instrument.quantity} db</div>
-                                <div className='card-body'>
-                                    <img className='img-fluid' style={{maxHeight:200}} alt="hello"
-                                src={instrument.imageURL ? instrument.imageURL : "https://via.placeholder.com/400x800"}/>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
+    const navigate = useNavigate();
+    return (
+        <div className='p5 content bg-whitesmoke text-center'>
+            <form
+            onSubmit={(event) => {
+                event.persist();
+                event.preventDefault();
+                fetch(`https://kodbazis.hu/api/instruments`, {
+                    method: "POST",
+                    credentials: "include",
+                    body: JSON.stringify({
+                        name: event.target.elements.name.value,
+                        price: event.target.elements.price.value,
+                        quantity: event.target.elements.quantity.value,
+                        imageURL: event.target.elements.imageURL.value,
+                    }),
+            })
+            .then(() => {
+                navigate(`/`);
+            })
+            .catch(console.log)
+            }}>
+                <div className='form-group row pb-3'>
+                    <label className='col-sm-3 col-form-label'> Név: </label>
+                        <div>
+                            <input type='text' name='name' className='form-control'></input>
+                        </div>
+                </div>
+                <div className='form-group row pb-3'>
+                    <label className='col-sm-3 col-form-label'> Ár: </label>
+                        <div>
+                            <input type='number' name='price' className='form-control'></input>
+                        </div>
+                </div>
+                <div className='form-group row pb-3'>
+                    <label className='col-sm-3 col-form-label'> Darab: </label>
+                        <div>
+                            <input type='number' name='quantity' className='form-control'></input>
+                        </div>
+                </div>
+                <div className='form-group row pb-3'>
+                    <label className='col-sm-3 col-form-label'> KépUrl: </label>
+                        <div>
+                            <input type='text' name='imageURL' className='form-control'></input>
+                        </div>
+                </div>
+                <button type='submit' className='btn btn-success'>
+                    Kuldes
+                </button>
+            </form>
         </div>
-    )
+    );
 } 

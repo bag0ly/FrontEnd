@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import { NavLink } from 'react-router-dom';
 export function InstrumentListPage()
 {
     const [instruments,setInstruments] = useState([]);
@@ -20,16 +21,18 @@ export function InstrumentListPage()
                     <div>
                         <h2>Hangszerek</h2>
                         {instruments.map((instrument)=>(
-                            <div className='card sol-sm-3 d-inline-block m-1 p-2'>
+                           <NavLink key={`/hangszer/${instrument.id}`} to={`/hangszer/${instrument.id}`}  >
+                                 <div className='card sol-sm-3 d-inline-block m-1 p-2'>
                                 <h6 className='text-muted'>{instrument.brand}</h6>
                                 <h5 className='text-muted'>{instrument.name}</h5>
                                 <div>{instrument.price}.- HUF</div>
                                 <div className='small'>Készleten: {instrument.quantity} db</div>
                                 <div className='card-body'>
                                     <img className='img-fluid' style={{maxHeight:200}} alt="hello"
-                                src={instrument.imageURL ? instrument.imageURL : "https://via.placeholder.com/400x800"}/>
+                                    src={instrument.imageURL ? instrument.imageURL : "https://via.placeholder.com/400x800"}/>
                                 </div>
                             </div>
+                           </NavLink>
                         ))}
                     </div>
                 )}
