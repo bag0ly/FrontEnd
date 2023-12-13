@@ -38,6 +38,14 @@ export function InstrumentSinglePage() {
                             <img className="img-fluid" style={{maxHeight: 200}} alt="Hiányzik a kép!" src={instrument.imageURL ? instrument.imageURL : 'https://via.placeholder.com/400x800'}/>
                             </NavLink>
                         </div>
+                        <div>
+                            <NavLink to={`/`}>
+                                <button className="bi bi-backspace rounded">Vissza</button>
+                            </NavLink>
+                            <NavLink key="mod" to={`/mod-hangszer/` + instrument.id}>
+                                <button className="bi bi-pencil rounded">Módosítás</button>
+                            </NavLink>
+                        </div>
                     </div>)}
         </div>
     );

@@ -21,7 +21,8 @@ export function InstrumentListPage()
                     <div>
                         <h2>Hangszerek</h2>
                         {instruments.map((instrument)=>(
-                           <NavLink key={`/hangszer/${instrument.id}`} to={`/hangszer/${instrument.id}`}  >
+                           <div>
+                            <NavLink key={`/hangszer/${instrument.id}`} to={`/hangszer/${instrument.id}`}  >
                                  <div className='card sol-sm-3 d-inline-block m-1 p-2'>
                                 <h6 className='text-muted'>{instrument.brand}</h6>
                                 <h5 className='text-muted'>{instrument.name}</h5>
@@ -33,6 +34,16 @@ export function InstrumentListPage()
                                 </div>
                             </div>
                            </NavLink>
+                           <br></br>
+                           <NavLink key="n"to={`/mod-hangszer/${instrument.id}`}  >
+                                <i className='bi bi-pencil-square'>Módosítás </i>
+                           </NavLink>
+                           &nbsp;&nbsp;
+                           <NavLink key="i" to={`/delete-hangszer/${instrument.id}`}>
+                                <i className='bi bi-trash3 text-danger'>Törlés</i>
+                           </NavLink>
+                           </div>
+                           
                         ))}
                     </div>
                 )}

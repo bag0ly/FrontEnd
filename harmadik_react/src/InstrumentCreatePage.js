@@ -30,6 +30,12 @@ export function InstrumentCreatePage()
                         </div>
                 </div>
                 <div className='form-group row pb-3'>
+                <label className='col-sm-3 col-form-label'> Brand: </label>
+                    <div>
+                        <input type='text' name='brand' className='form-control'/>
+                    </div>
+            </div>
+                <div className='form-group row pb-3'>
                     <label className='col-sm-3 col-form-label'> Ár: </label>
                         <div>
                             <input type='number' name='price' className='form-control'></input>
