@@ -10,11 +10,13 @@ export function PizzaCreatePage()
                 e.preventDefault();
                 fetch(`https://pizza.kando-dev.eu/Pizza`, {
                     method: "POST",
-                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                     body: JSON.stringify({
                         name: e.target.elements.name.value,
-                        isGlutenFree: e.target.elements.brand.value,
-                        kepURL: e.target.elements.price.value,
+                        isGlutenFree: e.target.elements.isGlutenFree.value,
+                        kepURL: e.target.elements.kepURL.value,
                     }),
             })
             .then(() => {
@@ -22,25 +24,36 @@ export function PizzaCreatePage()
             })
             .catch(console.log)
             }}>
-                <div className='form-group row pb-3'>
-                    <label className='col-sm-3 col-form-label'> Név: </label>
-                        <div>
-                            <input type='text' name='name' className='form-control'></input>
+                <br/>
+                <br/>
+                <br/>
+                <br/>   
+                <div className='form-group row pb-3 w-50 text-center content bg-ivory'>
+                    <label className='col-sm-3 col-form-label text-center content'> Név: </label>
+                    <div className='col-sm-9'>
+                        <input type='text' name='name' className='form-control mx-auto'></input>
+                    </div>
+                </div>
+
+                <div className='form-group row pb-3 w-50 text-center content bg-ivory'>
+                    <label className='col-sm-3 col-form-label text-center content'> KépUrl: </label>
+                        <div className='col-sm-9'>
+                            <input type='text' name='kepURL' className='form-control  mx-auto'></input>
                         </div>
                 </div>
-                <div className='form-group row pb-3'>
-                    <label className='col-sm-3 col-form-label'> Gluténmentes?: </label>
-                        <div>
-                            <input type ="radio" name="isGlutenFree" className='form-control'>Igen</input>
-                            &nbsp;
-                            <input type ="radio" name="isGlutenFree" className='form-control'>Nem</input>
-                        </div>
-                </div>
-                <div className='form-group row pb-3'>
-                    <label className='col-sm-3 col-form-label'> KépUrl: </label>
-                        <div>
-                            <input type='text' name='kepURL' className='form-control'></input>
-                        </div>
+                <div>
+                <label className='col-sm-3 col-form-label '> Gluténmentes?: </label>
+                    <div className='inputs-center'>
+                    <label>
+                        <input type="radio" name="isGlutenFree" value="1" className='form-control' />
+                        Igen
+                    </label>
+                    &nbsp;
+                    <label>
+                        <input type="radio" name="isGlutenFree" value="0" className='form-control' />
+                        Nem
+                    </label>
+                    </div>
                 </div>
                 <button type='submit' className='btn btn-success'>
                     Kuldes

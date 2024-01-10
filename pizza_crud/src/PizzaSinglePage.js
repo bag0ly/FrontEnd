@@ -10,28 +10,27 @@ export function PizzaSinglePage() {
 
     useEffect(() => {
         setFetchPending(true);
-        (async() => {
-            try{
-            const res = await fetch(`https://pizza.kando-dev.eu/Pizza${id}`, {credentials: 'include'});
-            const ppizza = await res.json();
-            setPizza(ppizza);
-        } 
-        catch(error){
-            console.log(error);
-        }
-        finally{
-            setFetchPending(false);
-        }
+        (async () => {
+            try {
+                const res = await fetch(`https://pizza.kando-dev.eu/Pizza/${id}`);
+                const ppizza = await res.json();
+                setPizza(ppizza);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setFetchPending(false);
+            }
         })();
-    },[id]);
+    }, [id]);
+    
 
     return (
-        <div className="p-5 m-auto text-center content bg-ivory">
+        <div className="p-5 m-auto text-center content bg-ivory w-50">
             {isFetchPending || !pizza.id ? (<div className="spinner-border"></div>) : (
                     <div className="card p-3">
                         <div className="card-body">
                             <h5 className="card-title">{pizza.name}</h5>
-                            <p>Gluténmentes?: {pizza.isGlutenFree ? "true" : "false"}</p>
+                            <p>{pizza.isGlutenFree ? "Gluténmentes" : "Nem gluténmentes"}</p>
                             <NavLink to={`/`}>
                             <img className="img-fluid" style={{maxHeight: 200}} alt="Hiányzik a kép!" src={pizza.kepURL ? pizza.kepURL : 'https://via.placeholder.com/400x800'}/>
                             </NavLink>
@@ -43,6 +42,10 @@ export function PizzaSinglePage() {
                             <NavLink key="mod" to={`/mod-pizza/` + pizza.id}>
                                 <button className="bi bi-pencil rounded">Módosítás</button>
                             </NavLink>
+                           &nbsp;&nbsp;
+                           <NavLink key="i" to={`/delete-pizza/${pizza.id}`}>
+                                <i className='bi bi-trash3 text-danger'>Törlés</i>
+                           </NavLink>
                         </div>
                     </div>)}
         </div>

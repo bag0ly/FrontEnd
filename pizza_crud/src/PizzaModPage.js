@@ -1,91 +1,127 @@
-import React, {useState, useEffect} from "react";
-import { useParams,useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
-export function PizzaModPage(props) {
-
-    const param = useParams();
-    const id = param.pizzaId;
-
+export function PizzaModPage() {
+    const { pizzaId } = useParams();
     const navigate = useNavigate();
-    const [pizza, setPizza] = useState([]);
+
+    const [pizza, setPizza] = useState({});
     const [Modname, setModname] = useState('');
-    const [ModisGlutenFree, setModisGlutenFree] = useState('');
+    const [ModisGlutenFree, setModisGlutenFree] = useState(false);
     const [Modimageurl, setModimageurl] = useState('');
-    
 
     useEffect(() => {
-        (async() => {
-            try{
-            const res = await fetch(`https://pizza.kando-dev.eu/Pizza${id}`, {credentials: 'include'});
-            const pizza = await res.json();
-            setPizza(pizza);
-            setModname(pizza.name);
-            setModisGlutenFree(pizza.ModisGlutenFree);
-            setModimageurl(pizza.imageURL);
-        } 
-        catch(error){
-            console.log(error);
-        }
-        })();
-    },[id, ModisGlutenFree, Modname, Modimageurl, Modimageurl]);
+        const fetchPizza = async () => {
+            try {
+                const response = await fetch(`https://pizza.kando-dev.eu/Pizza/${pizzaId}`);
+                const pizzaData = await response.json();
+                setPizza(pizzaData);
+                setModname(pizzaData.name);
+                setModisGlutenFree(pizzaData.isGlutenFree);
+                setModimageurl(pizzaData.kepURL);
+            } catch (error) {
+                console.error('Error fetching pizza:', error);
+            }
+        };
 
-    const modname = event =>{
+        fetchPizza();
+    }, [pizzaId]);
+
+    const modname = (event) => {
         setModname(event.target.value);
-    }
-    const modisGlutenFree = event =>{
-        setModisGlutenFree(event.target.value);
-    }
-    
-    const modimageurl = event =>{
+    };
+
+    const modisGlutenFree = (event) => {
+        setModisGlutenFree(event.target.value === '1');
+    };
+
+    const modimageurl = (event) => {
         setModimageurl(event.target.value);
-    }
-    return(
-        <div className='p5 content bg-whitesmoke text-center'>
-            <h2>Pizza módosítás</h2>
-        <form
-        onSubmit={(e) => {
-            e.persist();
-            e.preventDefault();
-            fetch(`https://pizza.kando-dev.eu/Pizza${id}`, {
-                method: "PUT",
-                headers:{
-                    "Content-Type": "application/json"
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch(`https://pizza.kando-dev.eu/Pizza/${pizzaId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
                 },
-                credentials: "include",
                 body: JSON.stringify({
-                    name: e.target.elements.name.value,
-                    isGlutenFree: e.target.elements.brand.value,
-                    kepURL: e.target.elements.price.value,
+                    id: pizzaId,
+                    name: Modname,
+                    isGlutenFree: ModisGlutenFree ? 1 : 0,
+                    kepURL: Modimageurl,
                 }),
-        })
-        .then(() => {
-            navigate(`/`);
-        })
-        .catch(console.log)
-        }}>
-            <div className='form-group row pb-3'>
-                <label className='col-sm-3 col-form-label'> Név: </label>
-                    <div>
-                        <input type='text' name='name' className='form-control' defaultValue={pizza.name} onChange={modname}/>
+            });
+
+            if (response.ok) {
+                navigate('/');
+            } else {
+                console.error('Failed to update pizza:', response.status, response.statusText);
+            }
+        } catch (error) {
+            console.error('Error during pizza update:', error);
+        }
+    };
+
+    return (
+        <div className='p-5 content bg-whitesmoke text-center'>
+            <h2>Pizza módosítás</h2>
+            <form onSubmit={handleSubmit}>
+                <div className='form-group row pb-3'>
+                    <label className='col-sm-3 col-form-label'> Név: </label>
+                    <div className='inputs'>
+                        <input
+                            type='text'
+                            name='name'
+                            className='form-control'
+                            value={Modname}
+                            onChange={modname}
+                        />
                     </div>
-            </div>
-            <div className='form-group row pb-3'>
-                <label className='col-sm-3 col-form-label'> KépUrl: </label>
-                    <div>
-                        <input type='text' name='kepURL' className='form-control' defaultValue={pizza.kepURL} onChange={modimageurl}/>
+                </div>
+                <div className='form-group row pb-3'>
+                    <label className='col-sm-3 col-form-label'> KépUrl: </label>
+                    <div className='inputs'>
+                        <input
+                            type='text'
+                            name='kepURL'
+                            className='form-control'
+                            value={Modimageurl}
+                            onChange={modimageurl}
+                        />
                     </div>
-            </div>
-            <div className='form-group row pb-3'>
-                <label className='col-sm-3 col-form-label'> Gluténmentes? </label>
-                    <div>
-                        <input type='number' name='isGlutenFree' className='form-control' defaultValue={pizza.isGlutenFree} onChange={modisGlutenFree}/>
-                    </div>
-            </div>
-            <button type='submit' className='btn btn-success'>
-                Kuldes
-            </button>
-        </form>
-    </div>
-    )
-    
+                </div>
+                <label className='col-sm-3 col-form-label'> Gluténmentes?: </label>
+                <div>
+                    <label>
+                        <input
+                            type='radio'
+                            name='isGlutenFree'
+                            value='1'
+                            checked={ModisGlutenFree}
+                            onChange={modisGlutenFree}
+                        />
+                        Igen
+                    </label>
+                    &nbsp;
+                    <label>
+                        <input
+                            type='radio'
+                            name='isGlutenFree'
+                            value='0'
+                            checked={!ModisGlutenFree}
+                            onChange={modisGlutenFree}
+                        />
+                        Nem
+                    </label>
+                </div>
+                <button type='submit' className='btn btn-success'>
+                    Küldés
+                </button>
+            </form>
+        </div>
+    );
 }
