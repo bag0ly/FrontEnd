@@ -10,7 +10,7 @@ import SummaryPage from './SummaryPage';
 function App() {
     return (
         <Router>
-            <nav className="navbar navbar-expand-sm navbar-dark bg-dark mx-auto">
+        <nav className="navbar navbar-expand-sm navbar-dark bg-dark mx-auto">
             <div className="collapse navbar-collapse" id="navbarNav center">
                 <ul className="navbar-nav mx-auto">
                     <li className="nav-item">
