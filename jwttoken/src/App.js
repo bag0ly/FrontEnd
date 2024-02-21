@@ -3,7 +3,6 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
-  const [token, setToken] = useState('');
   const [username, setUsername] = useState("user");
   const [password, setPassword] = useState("password");
   const [result, setResult] = useState(null);
@@ -13,7 +12,6 @@ function App() {
     axios.post('https://jwt.sulla.hu/login', { username, password })
       .then((res) => {
         const newToken = res.data.token;
-        setToken(newToken);
 
         if (newToken !== '') {
           axios.get('https://jwt.sulla.hu/termekek', {
