@@ -9,24 +9,25 @@ export default function AddTanar() {
         nem: ""
     });
 
+    const handleChange = (event) => {
+        const { id, value } = event.target;
+        setFormData({ ...formData, [id]: value });
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('https://localhost:7274/api/Tanarok/PostTanar', formData);
-            alert("Tanar sikeresen hozzaadva");
+            await axios.post('https://localhost:7274/api/Tanarok/PostTanar', formData);
+            alert("Tanar successfully added");
         } catch (error) {
             console.error('Error adding Tanar:', error);
         }
     };
 
-    const handleChange = (event) => {
-        setFormData({ ...formData, [event.target.id]: event.target.value });
-    };
-
     return (
         <div className="container p-5">
             <h2 className="text-center">Add Tanar</h2>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="vezetekNev">Vezeteknev</label>
                     <input
@@ -67,8 +68,7 @@ export default function AddTanar() {
                         onChange={handleChange}
                     />
                 </div>
-
-                <button className="btn btn-primary" onClick={handleSubmit}>Add Tanar</button>
+                <button type="submit" className="btn btn-primary">Add Tanar</button>
             </form>
         </div>
     );

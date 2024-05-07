@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 
 export default function GetAllTeacher() {
     const [tanar, setTanar] = useState([]);
@@ -45,6 +46,9 @@ export default function GetAllTeacher() {
                                         ) : (
                                             <p>Nincsenek jegyek</p>
                                         )}
+                                        <NavLink to={`/UpdateTanar/${item.id}`} >
+                                            <button className="bi bi-pencil-square text-success"></button>
+                                        </NavLink>
                                     </div>
                                 </div>
                         </div>

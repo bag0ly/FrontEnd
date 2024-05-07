@@ -1,8 +1,10 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 import {BrowserRouter as Router, Routes, Route, NavLink} from "react-router-dom";
 import GetAllData from "./GetAllData.js"; 
 import AddTanar from "./AddTanar.js";
+import UpdateTanar from "./UpdateTanar.js";
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
           <Routes>
             <Route path='/' element={<GetAllData />}/>
             <Route path='/AddTanar' element={<AddTanar />}/>
+            <Route path='/UpdateTanar/:id' element={<UpdateTanar />}/>
 
             <Route path="*" element={<GetAllData />}/>
           </Routes>
