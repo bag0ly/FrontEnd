@@ -34,14 +34,15 @@ export default function UpdateTanar() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.put(`https://localhost:7274/api/Tanarok/PutTanar?Id=${id}`);
+            const response = await axios.put(`https://localhost:7274/api/Tanarok/PutTanar?Id=${id}` , formData);
+            alert("Tanar successfully updated");
         } catch (error) {
             console.log(error);
         }
     };
 
     const handleChange = (event) => {
-        const { name, value } = event.target; // Use 'name' instead of 'id'
+        const { name, value } = event.target; 
         setFormData({ ...formData, [name]: value });
     };
 
@@ -53,8 +54,8 @@ export default function UpdateTanar() {
                 <label style={{ width: "150px", display: "inline-block" }}>Vezeteknev:</label>
                     <input
                         type="text"
-                        name="vezetekNev" // Add name attribute
-                        value={formData.vezetekNev}
+                        name="vezetekNev" 
+                        placeholder={formData.vezetekNev}
                         onChange={handleChange}
                     />
                 </div>
@@ -62,8 +63,8 @@ export default function UpdateTanar() {
                     <label style={{ width: "150px", display: "inline-block" }}>Keresztnev:</label>
                     <input
                         type="text"
-                        name="keresztNev" // Add name attribute
-                        value={formData.keresztNev}
+                        name="keresztNev" 
+                        placeholder={formData.keresztNev}
                         onChange={handleChange}
                     />
                 </div>
@@ -71,8 +72,8 @@ export default function UpdateTanar() {
                     <label style={{ width: "150px", display: "inline-block" }}>Email:</label>
                     <input
                         type="text"
-                        name="email" // Add name attribute
-                        value={formData.email}
+                        name="email" 
+                        placeholder={formData.email}
                         onChange={handleChange}
                     />
                 </div>
@@ -80,8 +81,8 @@ export default function UpdateTanar() {
                     <label style={{ width: "150px", display: "inline-block" }}>Nem:</label>
                     <input
                         type="text"
-                        name="nem" // Add name attribute
-                        value={formData.nem}
+                        name="nem" 
+                        placeholder={formData.nem}
                         onChange={handleChange}
                     />
                 </div> 
