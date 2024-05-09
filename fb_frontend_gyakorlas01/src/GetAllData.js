@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
-
 export default function GetAllTeacher() {
     const [tanar, setTanar] = useState([]);
     const [isPending, FetchPending] = useState(true);
@@ -23,8 +22,6 @@ export default function GetAllTeacher() {
             console.log(error)
         })
     }, []);
-
-
 
     return (
         <div className="container p-5">
